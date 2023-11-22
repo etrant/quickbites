@@ -1,2 +1,3 @@
-# delivery-app
-Delivery app project for mobile app development 
+# quickbites
+
+A new Flutter project.

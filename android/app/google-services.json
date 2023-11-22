@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "520685792479",
+    "project_id": "quickbites-437a8",
+    "storage_bucket": "quickbites-437a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520685792479:android:351d54faf5f7f5536d0d6a",
+        "android_client_info": {
+          "package_name": "com.teamnibblers.quickbites"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUJvQ6CU3UZAPjQYUzpGTMeCrYdvkJaA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
