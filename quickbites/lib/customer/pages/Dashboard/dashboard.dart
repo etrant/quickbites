@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickbites/customer/pages/Menu/menu.dart';
 
 class CustomerDashBoardApp extends StatelessWidget {
   const CustomerDashBoardApp({super.key});
@@ -7,16 +8,24 @@ class CustomerDashBoardApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Message Boards',
+      title: 'Customer Dashboard',
       initialRoute: '/customerDash',
       routes: {
         '/customerDash': (context) => const CustomerDashboard(),
-        '/tbMenu': (context) => const TempMenu(),
-        '/zaxbysMenu': (context) => const TempMenu(),
-        '/redlobsterMenu': (context) => const TempMenu(),
-        '/tbcMenu': (context) => const TempMenu(),
-        '/popeyesMenu': (context) => const TempMenu(),
-        '/wendysMenu': (context) => const TempMenu(),
+        '/tbMenu': (context) => const MenuScreen(restaurantName: "Taco Bell"),
+        '/zaxbysMenu': (context) => const MenuScreen(restaurantName: "Zaxby's"),
+        '/redlobsterMenu': (context) => const MenuScreen(
+              restaurantName: "Red Lobster",
+            ),
+        '/tbcMenu': (context) => const MenuScreen(
+              restaurantName: "Thai Basil Cuisine",
+            ),
+        '/popeyesMenu': (context) => const MenuScreen(
+              restaurantName: "Popeyes",
+            ),
+        '/wendysMenu': (context) => const MenuScreen(
+              restaurantName: "Wendys",
+            ),
       },
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
@@ -42,6 +51,7 @@ class CustomerDashboard extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'QuickBites',
+          textAlign: TextAlign.center,
         ),
       ),
       body: const Center(

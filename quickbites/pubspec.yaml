@@ -63,6 +63,23 @@ flutter:
     - lib/customer/pages/Dashboard/assets/tacobell.jpg
     - lib/customer/pages/Dashboard/assets/zaxbys.jpg
     - lib/customer/pages/Dashboard/assets/redlobster.jpg
+    - lib/customer/pages/Menu/assets/tacobell/beefy_five_layer.jpg
+    - lib/customer/pages/Menu/assets/tacobell/cinnabon_delights.jpg
+    - lib/customer/pages/Menu/assets/tacobell/crunchwrap_supreme.jpg
+    - lib/customer/pages/Menu/assets/tacobell/crunchy_taco.jpg
+    - lib/customer/pages/Menu/assets/tacobell/medium_drink.jpg
+    - lib/customer/pages/Menu/assets/zaxbys/big_zax.jpg
+    - lib/customer/pages/Menu/assets/zaxbys/funnel_cake.jpg
+    - lib/customer/pages/Menu/assets/zaxbys/house_zalad.jpg
+    - lib/customer/pages/Menu/assets/zaxbys/loaded_fries.jpg
+    - lib/customer/pages/Menu/assets/zaxbys/philly.jpg
+    - lib/customer/pages/Menu/assets/redlobster/biscuits.jpg
+    - lib/customer/pages/Menu/assets/redlobster/brownie_overboard.jpg
+    - lib/customer/pages/Menu/assets/redlobster/cajun_linguini.jpg
+    - lib/customer/pages/Menu/assets/redlobster/ny_strip.jpg
+    - lib/customer/pages/Menu/assets/redlobster/twin_maine.jpg
+
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
