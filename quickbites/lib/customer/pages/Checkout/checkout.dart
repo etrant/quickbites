@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({Key? key});
@@ -7,7 +8,12 @@ class CheckoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checkout'),
+        title: const Text(
+          'Checkout (Restaurant Name)',
+          style: TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -25,10 +31,6 @@ class CheckoutScreen extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                     const CheckoutItemWidget(),
-                    const CheckoutItemWidget(),
-                    const CheckoutItemWidget(),
-                    const CheckoutItemWidget(),
-                    const CheckoutItemWidget(),
                     const Text("Payments", style: TextStyle(fontSize: 22)),
                     const ListTile(
                       leading: Icon(Icons.credit_card_outlined,
@@ -44,30 +46,37 @@ class CheckoutScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.75,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 60),
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                padding: const EdgeInsets.all(16.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Place order',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(
+                bottom: 16.0), // Adjust the value as needed
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OrderConfirmation()));
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 60),
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  const Text('\$10.00',
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
-                ],
+                  padding: const EdgeInsets.all(16.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Place order',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    const Text('\$10.00',
+                        style: TextStyle(fontSize: 20, color: Colors.white)),
+                  ],
+                ),
               ),
             ),
           ),
@@ -83,10 +92,23 @@ class CheckoutItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: const Text('Burger', style: TextStyle(fontSize: 20)),
-      subtitle: const Text('Burger with fries and coke'),
-      trailing: Image.asset(
-          'lib/customer/pages/Menu/assets/redlobster/cajun_linguini.jpg'),
+      dense: false,
+      contentPadding: const EdgeInsets.all(16.0),
+      title: const Text('Item',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      subtitle: const Text(
+        'Item Description\n\$10.00',
+      ),
+      trailing: Container(
+        width: 100,
+        height: 150,
+        child: ClipRRect(
+          child: Image.asset(
+            'lib/customer/pages/Menu/assets/redlobster/cajun_linguini.jpg',
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
 import 'package:quickbites/customer/pages/Menu/menu.dart';
 
 class CustomerDashBoardApp extends StatelessWidget {
@@ -26,6 +27,7 @@ class CustomerDashBoardApp extends StatelessWidget {
         '/wendysMenu': (context) => const MenuScreen(
               restaurantName: "Wendys",
             ),
+        '/orderConfirm': (context) => const OrderConfirmation(),
       },
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
