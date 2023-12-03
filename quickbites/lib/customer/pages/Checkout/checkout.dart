@@ -27,19 +27,23 @@ class CheckoutScreen extends StatelessWidget {
                   children: [
                     const Text(
                       'Your Order',
-                      style: TextStyle(fontSize: 22),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
                     ),
                     const CheckoutItemWidget(),
-                    const Text("Payments", style: TextStyle(fontSize: 22)),
+                    const CheckoutItemWidget(),
+                    const CheckoutItemWidget(),
+                    const Text("Payments",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
                     const ListTile(
                       leading: Icon(Icons.credit_card_outlined,
-                          size: 50, color: Colors.black),
+                          size: 45, color: Colors.black),
                       title: Text('Add a Payment Method',
-                          style: TextStyle(fontSize: 20)),
+                          style: TextStyle(fontSize: 18)),
                       trailing:
                           Icon(Icons.arrow_forward_ios, color: Colors.black),
-                      mouseCursor: SystemMouseCursors.click,
                     ),
                   ],
                 ),
@@ -99,9 +103,9 @@ class CheckoutItemWidget extends StatelessWidget {
       subtitle: const Text(
         'Item Description\n\$10.00',
       ),
-      trailing: Container(
-        width: 100,
-        height: 150,
+      trailing: FractionallySizedBox(
+        widthFactor: 0.25, // 20% of the parent ListTile width
+        heightFactor: 1.5, // Takes full height of the parent ListTile
         child: ClipRRect(
           child: Image.asset(
             'lib/customer/pages/Menu/assets/redlobster/cajun_linguini.jpg',
