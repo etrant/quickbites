@@ -45,6 +45,7 @@ class CheckoutScreen extends StatelessWidget {
                       trailing:
                           Icon(Icons.arrow_forward_ios, color: Colors.black),
                     ),
+                    const SavedPayments(),
                   ],
                 ),
               ),
@@ -113,6 +114,18 @@ class CheckoutItemWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SavedPayments extends StatelessWidget {
+  const SavedPayments({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: const Text("Saved Payments"),
     );
   }
 }
