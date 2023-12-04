@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'auth/pages/auth_gate.dart';
+import 'package:quickbites/splash/pages/splash_page.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthGate(),
+      home: SplashPage(),
     );
   }
 }
