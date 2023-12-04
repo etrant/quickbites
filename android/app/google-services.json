@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:520685792479:android:351d54faf5f7f5536d0d6a",
+        "mobilesdk_app_id": "1:520685792479:android:30f5b770afa7a1316d0d6a",
         "android_client_info": {
-          "package_name": "com.teamnibblers.quickbites"
+          "package_name": "com.example.quickbites"
         }
       },
       "oauth_client": [],
