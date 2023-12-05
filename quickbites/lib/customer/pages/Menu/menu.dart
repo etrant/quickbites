@@ -117,6 +117,26 @@ Map<String, Map<String, dynamic>> restaurants = {
         "image": "",
         "price": 0.0,
       },
+      "Item 2": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 3": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 4": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 5": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
     },
     "distance": 0.0,
     "rating": 4.6,
@@ -128,6 +148,26 @@ Map<String, Map<String, dynamic>> restaurants = {
         "image": "",
         "price": 0.0,
       },
+      "Item 2": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 3": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 4": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 5": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
     },
     "distance": 0.0,
     "rating": 3.5,
@@ -135,6 +175,26 @@ Map<String, Map<String, dynamic>> restaurants = {
   "Wendy's": {
     "menu": {
       "Item 1": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 2": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 3": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 4": {
+        "description": "",
+        "image": "",
+        "price": 0.0,
+      },
+      "Item 5": {
         "description": "",
         "image": "",
         "price": 0.0,
