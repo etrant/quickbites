@@ -174,15 +174,16 @@ Map<String, Map<String, dynamic>> restaurants = {
   },
   "Wendy's": {
     "menu": {
-      "Item 1": {
-        "description": "",
-        "image": "",
-        "price": 0.0,
+      "Baconator": {
+        "description":
+            "A feast for carnivores! A 1/2 lb patty topped with 6 strips of bacon, American cheese, ketchup, and mayo.",
+        "image": "lib/customer/pages/Menu/assets/wendys/baconator.png",
+        "price": 7.99,
       },
-      "Item 2": {
-        "description": "",
-        "image": "",
-        "price": 0.0,
+      "Spicy Chicken Nuggets": {
+        "description": "A medley of spices combined with a juicy chicken.",
+        "image": "lib/customer/pages/Menu/assets/wendys/spicynuggets.png",
+        "price": 4.89,
       },
       "Item 3": {
         "description": "",
