@@ -36,7 +36,9 @@ Map<String, Map<String, dynamic>> restaurants = {
       },
     },
     "distance": 1.0,
-    "rating": 4.5,
+    "latitude": 33.82719851139403,
+    "longitude": -84.3257637236474,
+    "rating": 3.7,
   },
   "Zaxby's": {
     "menu": {
@@ -71,8 +73,10 @@ Map<String, Map<String, dynamic>> restaurants = {
         "price": 3.49,
       },
     },
+    "latitude": 33.8744427293557,
+    "longitude": -84.38121570364584,
     "distance": 2.5,
-    "rating": 4.0,
+    "rating": 4.2,
   },
   "Red Lobster": {
     "menu": {
@@ -108,7 +112,9 @@ Map<String, Map<String, dynamic>> restaurants = {
       },
     },
     "distance": 2.5,
-    "rating": 4.0,
+    "latitude": 34.05928328324028,
+    "longitude": -84.56540035008841,
+    "rating": 4.3,
   },
   "Thai Basil Cuisine": {
     "menu": {
