@@ -116,43 +116,84 @@ Map<String, Map<String, dynamic>> restaurants = {
     "longitude": -84.56540035008841,
     "rating": 4.3,
   },
-  "Thai Basil Cuisine": {
-    "menu": {
-      "Item 1": {
-        "description": "",
-        "image": "",
-        "price": 0.0,
-      },
-    },
-    "distance": 0.0,
-    "rating": 4.6,
-  },
   "Popeyes": {
     "menu": {
-      "Item 1": {
-        "description": "",
-        "image": "",
-        "price": 0.0,
+      "1/4 lb Popcorn Shrimp Combo": {
+        "description":
+            "Crunchy, fresh, and full of flavor. A taste of the sea right at your fingertips. Comes with a biscuit and a side of your choice.",
+        "image": "lib/customer/pages/Menu/assets/popeyes/popcornshrimp.png",
+        "price": 10.39,
+      },
+      "5 Tenders Combo": {
+        "description":
+            "Juicy, tender, and full of flavor. Comes with a biscuit and a side of your choice.",
+        "image": "lib/customer/pages/Menu/assets/popeyes/tenders.png",
+        "price": 11.49,
+      },
+      "8 Chicken Nuggets Combo": {
+        "description":
+            "The tenders in bite size! Extra crispiness just for you. Comes with a biscuit and a side of your choice.",
+        "image": "lib/customer/pages/Menu/assets/popeyes/nuggets.png",
+        "price": 8.89,
+      },
+      "12 Wings Combo": {
+        "description":
+            "Crispy, juicy, and full of flavor. Comes with a biscuit and a side of your choice. Get in tossed in your favorite sauce!",
+        "image": "lib/customer/pages/Menu/assets/popeyes/friedchicken.png",
+        "price": 13.79,
+      },
+      "Oreo Cheesecake Cup": {
+        "description":
+            "Oreo cheesecake on an oreo crust topped with oreo chunks! Need we say more?",
+        "image": "lib/customer/pages/Menu/assets/popeyes/oreocheesecake.png",
+        "price": 3.79,
       },
     },
-    "distance": 0.0,
+    "distance": 2.5,
     "rating": 3.5,
   },
   "Wendy's": {
     "menu": {
-      "Item 1": {
-        "description": "",
-        "image": "",
-        "price": 0.0,
+      "Baconator": {
+        "description":
+            "A feast for carnivores! A 1/2 lb patty topped with 6 strips of bacon, American cheese, ketchup, and mayo.",
+        "image": "lib/customer/pages/Menu/assets/wendys/baconator.png",
+        "price": 7.99,
+      },
+      "Spicy Chicken Nuggets": {
+        "description": "A medley of spices combined with a juicy chicken.",
+        "image": "lib/customer/pages/Menu/assets/wendys/spicynuggets.png",
+        "price": 4.89,
+      },
+      "Ghost Pepper Ranch Chicken Sandwich": {
+        "description":
+            "A spicy chicken sandwich with ghost pepper ranch. You might become a ghost after eating this.",
+        "image":
+            "lib/customer/pages/Menu/assets/wendys/ghostpeppersandwich.png",
+        "price": 6.99,
+      },
+      "Apple Pecan Salad": {
+        "description":
+            "Lettuce, apple bites, pecans, cranberries, blue cheese, and some chicken. What more do you need?",
+        "image": "lib/customer/pages/Menu/assets/wendys/applepecansalad.png",
+        "price": 8.29,
+      },
+      "Peppermint Frosty": {
+        "description":
+            "Peppermint combined with our signature vanilla frosty. This'll put a pep in YOUR step.",
+        "image": "lib/customer/pages/Menu/assets/wendys/peppermintfrosty.png",
+        "price": 2.09,
       },
     },
-    "distance": 0.0,
+    "distance": 7.1,
     "rating": 4.3,
   },
 };
 
 class MenuScreen extends StatelessWidget {
   final String restaurantName;
+
+  //menu screen is going to need to display the restauant name at the top, and then the menu items that have a check box on them.ill
 
   const MenuScreen({Key? key, required this.restaurantName}) : super(key: key);
   @override

@@ -78,6 +78,16 @@ flutter:
     - lib/customer/pages/Menu/assets/redlobster/cajun_linguini.jpg
     - lib/customer/pages/Menu/assets/redlobster/ny_strip.jpg
     - lib/customer/pages/Menu/assets/redlobster/twin_maine.jpg
+    - lib/customer/pages/Menu/assets/popeyes/friedchicken.jpg
+    - lib/customer/pages/Menu/assets/popeyes/nuggets.jpg
+    - lib/customer/pages/Menu/assets/popeyes/oreocheesecake.jpg
+    - lib/customer/pages/Menu/assets/popeyes/popcornshrimp.jpg
+    - lib/customer/pages/Menu/assets/popeyes/tenders.jpg
+    - lib/customer/pages/Menu/assets/wendys/applepecansalad.jpg
+    - lib/customer/pages/Menu/assets/wendys/baconator.jpg
+    - lib/customer/pages/Menu/assets/wendys/ghostpeppersandwich.jpg
+    - lib/customer/pages/Menu/assets/wendys/peppermintfrosty.jpg
+    - lib/customer/pages/Menu/assets/wendys/spicynuggets.jpg
 
     
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -109,7 +109,7 @@ class CheckoutItemWidget extends StatelessWidget {
         heightFactor: 1.5, // Takes full height of the parent ListTile
         child: ClipRRect(
           child: Image.asset(
-            'lib/customer/pages/Menu/assets/redlobster/cajun_linguini.jpg',
+            'lib/customer/pages/Menu/assets/wendys/baconator.jpg',
             fit: BoxFit.cover,
           ),
         ),
