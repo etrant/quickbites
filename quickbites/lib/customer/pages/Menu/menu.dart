@@ -193,20 +193,40 @@ Map<String, Map<String, dynamic>> restaurants = {
 class MenuScreen extends StatelessWidget {
   final String restaurantName;
 
-  //menu screen is going to need to display the restauant name at the top, and then the menu items that have a check box on them.ill
+  //menu screen is going to need to display the restaurant name at the top, and then the menu items that have a check box on them.ill
 
   const MenuScreen({Key? key, required this.restaurantName}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //below variable will get the menu items for the restaurant in "restaurantName"
+    final restaurantMenu =
+        restaurants[restaurantName]!['menu'] as Map<String, dynamic>? ?? {};
     return Scaffold(
       appBar: AppBar(
         title: Text(restaurantName),
       ),
-      body: const Center(
-        child: Text(
-          'Menu Items',
-          style: TextStyle(fontSize: 24),
-        ),
+      body: ListView.builder(
+        itemCount: restaurantMenu.length,
+        itemBuilder: (BuildContext context, int index) {
+          String itemName = restaurantMenu.keys.elementAt(index);
+          var item = restaurantMenu[itemName];
+
+          return CheckboxListTile(
+            title: Text(itemName),
+            subtitle: Text(item['description']),
+            value:
+                false, //use state to keep track of whether the item is checked or not later
+            onChanged: (bool? value) {
+              //implement logic to handle checkbox toggle
+            },
+            secondary: Image.asset(
+              item['image'],
+              width: 100,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
+          );
+        },
       ),
     );
   }
