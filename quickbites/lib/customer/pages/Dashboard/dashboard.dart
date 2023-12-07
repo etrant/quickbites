@@ -99,7 +99,7 @@ class CustomerDashboard extends StatelessWidget {
               ),
               RestaurantCard(
                 name: 'Wendys',
-                imgURL: 'lib/customer/pages/Dashboard/assets/tacobell.jpg',
+                imgURL: 'lib/customer/pages/Dashboard/assets/wendys.jpg',
                 distance: 1,
                 rating: 4.6,
                 price: "\$\$",
@@ -112,7 +112,7 @@ class CustomerDashboard extends StatelessWidget {
             children: [
               RestaurantCard(
                 name: 'Popeyes',
-                imgURL: 'lib/customer/pages/Dashboard/assets/tacobell.jpg',
+                imgURL: 'lib/customer/pages/Dashboard/assets/popeyes.jpg',
                 distance: 1,
                 rating: 3.5,
                 price: "\$",

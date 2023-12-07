@@ -191,12 +191,22 @@ Map<String, Map<String, dynamic>> restaurants = {
   },
 };
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   final String restaurantName;
 
-  //menu screen is going to need to display the restaurant name at the top, and then the menu items that have a check box on them.ill
-
   const MenuScreen({Key? key, required this.restaurantName}) : super(key: key);
+
+  @override
+  _MenuScreenState createState() => _MenuScreenState(restaurantName);
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  final String restaurantName;
+  List<bool> isCheckedList = [];
+
+  // Constructor to receive the restaurantName
+  _MenuScreenState(this.restaurantName);
+
   @override
   Widget build(BuildContext context) {
     final restaurantMenu =
@@ -212,22 +222,32 @@ class MenuScreen extends StatelessWidget {
           String itemName = restaurantMenu.keys.elementAt(index);
           var item = restaurantMenu[itemName];
 
+          // Ensure isCheckedList has enough elements to avoid index out of bounds
+          while (isCheckedList.length <= index) {
+            isCheckedList.add(false);
+          }
+
           return Padding(
-            padding: const EdgeInsets.all(8.0), // Adjust the padding as needed
+            padding: const EdgeInsets.all(8.0),
             child: ListTile(
-              contentPadding:
-                  EdgeInsets.all(10.0), // Adjust the padding as needed
+              contentPadding: EdgeInsets.all(10.0),
               leading: Checkbox(
-                value: false, // Replace with state management logic
+                value: isCheckedList[index],
+                checkColor: Colors.black,
+                fillColor: MaterialStateProperty.all(Colors.white),
                 onChanged: (bool? value) {
-                  // Logic to handle checkbox change should go here
+                  if (value != null) {
+                    setState(() {
+                      isCheckedList[index] = !isCheckedList[index];
+                    });
+                  }
                 },
               ),
               title: Text(itemName),
               subtitle: Text(item['description']),
               trailing: FractionallySizedBox(
-                widthFactor: 0.25, // 20% of the parent ListTile width
-                heightFactor: 1.5, // Takes full height of the parent ListTile
+                widthFactor: 0.25,
+                heightFactor: 1.5,
                 child: ClipRRect(
                   child: Image.asset(
                     item['image'],

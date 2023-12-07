@@ -64,6 +64,8 @@ flutter:
     - lib/customer/pages/Dashboard/assets/tacobell.jpg
     - lib/customer/pages/Dashboard/assets/zaxbys.jpg
     - lib/customer/pages/Dashboard/assets/redlobster.jpg
+    - lib/customer/pages/Dashboard/assets/wendys.jpg
+    - lib/customer/pages/Dashboard/assets/popeyes.jpg
     - lib/customer/pages/Menu/assets/tacobell/beefy_five_layer.jpg
     - lib/customer/pages/Menu/assets/tacobell/cinnabon_delights.jpg
     - lib/customer/pages/Menu/assets/tacobell/crunchwrap_supreme.jpg
