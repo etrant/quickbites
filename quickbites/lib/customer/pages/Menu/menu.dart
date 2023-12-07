@@ -29,7 +29,8 @@ Map<String, Map<String, dynamic>> restaurants = {
         "price": 2.89,
       },
       "Cinnabon Delights 12 Pack": {
-        "description": "Chalupas",
+        "description":
+            "Warm donut holes filled with Cinnabon® signature cream cheese frosting, and dusted in Makara Cinnamon sugar",
         "image":
             "lib/customer/pages/Menu/assets/tacobell/cinnabon_delights.jpg",
         "price": 6.89,
