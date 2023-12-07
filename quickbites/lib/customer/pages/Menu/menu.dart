@@ -214,8 +214,10 @@ class MenuScreen extends StatelessWidget {
 
           return ListTile(
             leading: Checkbox(
-              value: false,
-              onChanged: (bool? value) {},
+              value: false, //needs to be replaced with state management logic
+              onChanged: (bool? value) {
+                //logic to handle checkbox change should go here
+              },
             ),
             title: Text(itemName),
             subtitle: Text(item['description']),
