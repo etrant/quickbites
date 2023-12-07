@@ -170,7 +170,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                       ),
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     Text(
                       "Our Drivers?",
@@ -189,9 +189,6 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
                     ),
                     !isTracking
                         ? Text(

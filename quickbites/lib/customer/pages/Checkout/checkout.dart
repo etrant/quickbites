@@ -54,7 +54,7 @@ class CheckoutScreen extends StatelessWidget {
                       },
                       dense: false,
                       contentPadding: EdgeInsets.all(16.0),
-                      leading: Icon(Icons.credit_card_outlined,
+                      leading: Icon(Icons.add_card_outlined,
                           size: 45, color: Colors.black),
                       title: Text('Add a Payment Method',
                           style: TextStyle(fontSize: 18)),
@@ -148,46 +148,66 @@ class CheckoutItemWidget extends StatelessWidget {
 class SavedPayments extends StatelessWidget {
   const SavedPayments({Key? key});
 
-  Future<String?> _getLast4Digits() async {
+  Future<List<String>> _getLast4Digits() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? cardList = prefs.getStringList('cardList') ?? [];
 
     // Print the retrieved cardList for debugging
     print('Retrieved cardList: $cardList');
 
-    // Retrieve the last saved card information
-    if (cardList.isNotEmpty) {
-      String lastCardInfoString = cardList.last;
+    List<String> last4DigitsList = [];
 
+    // Retrieve the last 4 digits for each saved card information
+    for (String lastCardInfoString in cardList) {
       try {
         // Decode the JSON string
         Map<String, dynamic> lastCardInfo = json.decode(lastCardInfoString);
 
         String cardNumber = lastCardInfo['cardNumber'];
 
-        // Extract and return the last 4 digits
-        return cardNumber.substring(cardNumber.length - 4);
+        // Extract and add the last 4 digits to the list
+        last4DigitsList.add(cardNumber.substring(cardNumber.length - 4));
       } catch (e) {
         // Handle the case where decoding fails
         print('Error decoding lastCardInfo: $e');
-        // You can return a default value or handle it as needed
+        // You can skip the invalid entry or handle it as needed
       }
     }
 
-    return null;
+    return last4DigitsList;
   }
 
   @override
   Widget build(BuildContext context) {
     print('SavedPayments is being rebuilt!');
-    return FutureBuilder<String?>(
+    return FutureBuilder<List<String>>(
       future: _getLast4Digits(),
       builder: (context, snapshot) {
         try {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             return Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Saved Payments: **** **** **** ${snapshot.data}"),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Saved Payments",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  for (String last4Digits in snapshot.data!)
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.credit_card_outlined,
+                          size: 24,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(width: 8.0),
+                        Text("*$last4Digits",
+                            style: const TextStyle(fontSize: 16)),
+                      ],
+                    ),
+                ],
+              ),
             );
           } else {
             return Container(
@@ -197,7 +217,7 @@ class SavedPayments extends StatelessWidget {
           }
         } catch (e) {
           print('Error: $e');
-          return Text("Error occured");
+          return Text("Error occurred");
         }
       },
     );
