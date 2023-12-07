@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quickbites/customer/pages/Checkout/services/add_order.dart';
 import 'package:quickbites/customer/pages/Checkout/services/addcard.dart';
 import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
+import 'package:quickbites/customer/pages/Dashboard/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -13,13 +14,24 @@ class CheckoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Checkout (Restaurant Name)',
-          style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
+          title: const Text(
+            'Checkout (Restaurant Name)',
+            style: TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.home_outlined, color: Colors.black),
+            color: Colors.black,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CustomerDashboard(),
+                ),
+              );
+            },
+          )),
       body: Column(
         children: [
           Expanded(
