@@ -103,7 +103,7 @@ class CustomerDashboard extends StatelessWidget {
                 distance: 1,
                 rating: 4.6,
                 price: "\$\$",
-                route: '/tbcMenu',
+                route: '/wendysMenu',
               ),
             ],
           ),
