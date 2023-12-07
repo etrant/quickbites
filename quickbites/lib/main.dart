@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quickbites/customer/pages/Checkout/checkout.dart';
-import 'customer/pages/Dashboard/dashboard.dart';
+import 'package:quickbites/customer/pages/Dashboard/dashboard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const CheckoutScreen(),
+      home: const CustomerDashBoardApp(),
     );
   }
 }
