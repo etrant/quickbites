@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:quickbites/customer/pages/Checkout/services/add_order.dart';
 import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
 
 class CheckoutScreen extends StatelessWidget {
-  const CheckoutScreen({Key? key});
+  CheckoutScreen({Key? key});
+  final OrderService orderService = OrderService();
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +60,13 @@ class CheckoutScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.75,
               child: ElevatedButton(
                 onPressed: () {
+                  orderService.createOrder();
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const OrderConfirmation()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OrderConfirmation(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 60),
@@ -71,15 +76,23 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.all(16.0),
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Place order',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
                     ),
-                    const Text('\$10.00',
-                        style: TextStyle(fontSize: 20, color: Colors.white)),
+                    Text(
+                      '\$10.00',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ),
