@@ -18,9 +18,6 @@ class CustomerDashBoardApp extends StatelessWidget {
         '/redlobsterMenu': (context) => const MenuScreen(
               restaurantName: "Red Lobster",
             ),
-        '/tbcMenu': (context) => const MenuScreen(
-              restaurantName: "Thai Basil Cuisine",
-            ),
         '/popeyesMenu': (context) => const MenuScreen(
               restaurantName: "Popeyes",
             ),
@@ -101,7 +98,7 @@ class CustomerDashboard extends StatelessWidget {
                 route: '/redlobsterMenu',
               ),
               RestaurantCard(
-                name: 'Thai Basil Cuisine',
+                name: 'Wendys',
                 imgURL: 'lib/customer/pages/Dashboard/assets/tacobell.jpg',
                 distance: 1,
                 rating: 4.6,

@@ -221,8 +221,8 @@ class MenuScreen extends StatelessWidget {
             },
             secondary: Image.asset(
               item['image'],
-              width: 100,
-              height: 60,
+              width: 50,
+              height: 50,
               fit: BoxFit.cover,
             ),
           );
