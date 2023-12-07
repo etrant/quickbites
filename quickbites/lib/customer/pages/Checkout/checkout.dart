@@ -165,7 +165,7 @@ class SavedPayments extends StatelessWidget {
     List<String>? cardList = prefs.getStringList('cardList') ?? [];
 
     // Print the retrieved cardList for debugging
-    print('Retrieved cardList: $cardList');
+    //print('Retrieved cardList: $cardList');
 
     List<String> last4DigitsList = [];
 
