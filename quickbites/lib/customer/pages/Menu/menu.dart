@@ -211,19 +211,22 @@ class MenuScreen extends StatelessWidget {
           String itemName = restaurantMenu.keys.elementAt(index);
           var item = restaurantMenu[itemName];
 
-          return CheckboxListTile(
-            title: Text(itemName),
-            subtitle: Text(item['description']),
-            value:
-                false, //use state to keep track of whether the item is checked or not later
-            onChanged: (bool? value) {
-              //implement logic to handle checkbox toggle
-            },
-            secondary: Image.asset(
-              item['image'],
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
+          return Directionality(
+            textDirection: TextDirection.rtl,
+            child: CheckboxListTile(
+              title: Text(itemName),
+              subtitle: Text(item['description']),
+              value:
+                  false, //use state to keep track of whether the item is checked or not later
+              onChanged: (bool? value) {
+                //implement logic to handle checkbox toggle
+              },
+              secondary: Image.asset(
+                item['image'],
+                width: 50,
+                height: 50,
+                fit: BoxFit.contain,
+              ),
             ),
           );
         },
