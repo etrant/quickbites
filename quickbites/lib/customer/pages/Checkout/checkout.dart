@@ -74,7 +74,7 @@ class CheckoutScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.75,
               child: ElevatedButton(
                 onPressed: () {
-                  // orderService.createOrder();
+                  // orderService.createOrder();       //uncomment this out later!
                   Navigator.push(
                     context,
                     MaterialPageRoute(
