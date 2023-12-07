@@ -152,36 +152,36 @@ Map<String, Map<String, dynamic>> restaurants = {
     "distance": 2.5,
     "rating": 3.5,
   },
-  "Wendy's": {
+  "Wendys": {
     "menu": {
       "Baconator": {
         "description":
             "A feast for carnivores! A 1/2 lb patty topped with 6 strips of bacon, American cheese, ketchup, and mayo.",
-        "image": "lib/customer/pages/Menu/assets/wendys/baconator.png",
+        "image": "lib/customer/pages/Menu/assets/wendys/baconator.jpg",
         "price": 7.99,
       },
       "Spicy Chicken Nuggets": {
         "description": "A medley of spices combined with a juicy chicken.",
-        "image": "lib/customer/pages/Menu/assets/wendys/spicynuggets.png",
+        "image": "lib/customer/pages/Menu/assets/wendys/spicynuggets.jpg",
         "price": 4.89,
       },
       "Ghost Pepper Ranch Chicken Sandwich": {
         "description":
             "A spicy chicken sandwich with ghost pepper ranch. You might become a ghost after eating this.",
         "image":
-            "lib/customer/pages/Menu/assets/wendys/ghostpeppersandwich.png",
+            "lib/customer/pages/Menu/assets/wendys/ghostpeppersandwich.jpg",
         "price": 6.99,
       },
       "Apple Pecan Salad": {
         "description":
             "Lettuce, apple bites, pecans, cranberries, blue cheese, and some chicken. What more do you need?",
-        "image": "lib/customer/pages/Menu/assets/wendys/applepecansalad.png",
+        "image": "lib/customer/pages/Menu/assets/wendys/applepecansalad.jpg",
         "price": 8.29,
       },
       "Peppermint Frosty": {
         "description":
             "Peppermint combined with our signature vanilla frosty. This'll put a pep in YOUR step.",
-        "image": "lib/customer/pages/Menu/assets/wendys/peppermintfrosty.png",
+        "image": "lib/customer/pages/Menu/assets/wendys/peppermintfrosty.jpg",
         "price": 2.09,
       },
     },
