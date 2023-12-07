@@ -121,31 +121,31 @@ Map<String, Map<String, dynamic>> restaurants = {
       "1/4 lb Popcorn Shrimp Combo": {
         "description":
             "Crunchy, fresh, and full of flavor. A taste of the sea right at your fingertips. Comes with a biscuit and a side of your choice.",
-        "image": "lib/customer/pages/Menu/assets/popeyes/popcornshrimp.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/popcornshrimp.jpg",
         "price": 10.39,
       },
       "5 Tenders Combo": {
         "description":
             "Juicy, tender, and full of flavor. Comes with a biscuit and a side of your choice.",
-        "image": "lib/customer/pages/Menu/assets/popeyes/tenders.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/tenders.jpg",
         "price": 11.49,
       },
       "8 Chicken Nuggets Combo": {
         "description":
             "The tenders in bite size! Extra crispiness just for you. Comes with a biscuit and a side of your choice.",
-        "image": "lib/customer/pages/Menu/assets/popeyes/nuggets.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/nuggets.jpg",
         "price": 8.89,
       },
       "12 Wings Combo": {
         "description":
             "Crispy, juicy, and full of flavor. Comes with a biscuit and a side of your choice. Get in tossed in your favorite sauce!",
-        "image": "lib/customer/pages/Menu/assets/popeyes/friedchicken.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/friedchicken.jpg",
         "price": 13.79,
       },
       "Oreo Cheesecake Cup": {
         "description":
             "Oreo cheesecake on an oreo crust topped with oreo chunks! Need we say more?",
-        "image": "lib/customer/pages/Menu/assets/popeyes/oreocheesecake.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/oreocheesecake.jpg",
         "price": 3.79,
       },
     },
