@@ -27,7 +27,7 @@ class CheckoutScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const CustomerDashboard(),
+                  builder: (context) => const CustomerDashBoardApp(),
                 ),
               );
             },
