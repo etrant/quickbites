@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:quickbites/customer/pages/Checkout/services/add_order.dart';
+import 'package:quickbites/customer/pages/Checkout/services/addcard.dart';
 import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckoutScreen extends StatelessWidget {
   CheckoutScreen({Key? key});
-  final OrderService orderService = OrderService();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,18 @@ class CheckoutScreen extends StatelessWidget {
                     const Text("Payments",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
-                    const ListTile(
+                    ListTile(
+                      onTap: () {
+                        // Use Navigator.push inside a function or anonymous function
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddCardScreen(),
+                          ),
+                        );
+                      },
+                      dense: false,
+                      contentPadding: EdgeInsets.all(16.0),
                       leading: Icon(Icons.credit_card_outlined,
                           size: 45, color: Colors.black),
                       title: Text('Add a Payment Method',
@@ -60,7 +74,7 @@ class CheckoutScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.75,
               child: ElevatedButton(
                 onPressed: () {
-                  orderService.createOrder();
+                  // orderService.createOrder();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -134,11 +148,58 @@ class CheckoutItemWidget extends StatelessWidget {
 class SavedPayments extends StatelessWidget {
   const SavedPayments({Key? key});
 
+  Future<String?> _getLast4Digits() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? cardList = prefs.getStringList('cardList') ?? [];
+
+    // Print the retrieved cardList for debugging
+    print('Retrieved cardList: $cardList');
+
+    // Retrieve the last saved card information
+    if (cardList.isNotEmpty) {
+      String lastCardInfoString = cardList.last;
+
+      try {
+        // Decode the JSON string
+        Map<String, dynamic> lastCardInfo = json.decode(lastCardInfoString);
+
+        String cardNumber = lastCardInfo['cardNumber'];
+
+        // Extract and return the last 4 digits
+        return cardNumber.substring(cardNumber.length - 4);
+      } catch (e) {
+        // Handle the case where decoding fails
+        print('Error decoding lastCardInfo: $e');
+        // You can return a default value or handle it as needed
+      }
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: const Text("Saved Payments"),
+    print('SavedPayments is being rebuilt!');
+    return FutureBuilder<String?>(
+      future: _getLast4Digits(),
+      builder: (context, snapshot) {
+        try {
+          if (snapshot.hasData) {
+            return Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Saved Payments: **** **** **** ${snapshot.data}"),
+            );
+          } else {
+            return Container(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text("Saved Payments: No saved cards"),
+            );
+          }
+        } catch (e) {
+          print('Error: $e');
+          return Text("Error occured");
+        }
+      },
     );
   }
 }
