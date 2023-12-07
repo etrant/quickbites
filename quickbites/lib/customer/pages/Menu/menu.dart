@@ -199,9 +199,9 @@ class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key, required this.restaurantName}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    //below variable will get the menu items for the restaurant in "restaurantName"
     final restaurantMenu =
         restaurants[restaurantName]!['menu'] as Map<String, dynamic>? ?? {};
+
     return Scaffold(
       appBar: AppBar(
         title: Text(restaurantName),
@@ -212,20 +212,29 @@ class MenuScreen extends StatelessWidget {
           String itemName = restaurantMenu.keys.elementAt(index);
           var item = restaurantMenu[itemName];
 
-          return ListTile(
-            leading: Checkbox(
-              value: false, //needs to be replaced with state management logic
-              onChanged: (bool? value) {
-                //logic to handle checkbox change should go here
-              },
-            ),
-            title: Text(itemName),
-            subtitle: Text(item['description']),
-            trailing: Image.asset(
-              item['image'],
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
+          return Padding(
+            padding: const EdgeInsets.all(8.0), // Adjust the padding as needed
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.all(10.0), // Adjust the padding as needed
+              leading: Checkbox(
+                value: false, // Replace with state management logic
+                onChanged: (bool? value) {
+                  // Logic to handle checkbox change should go here
+                },
+              ),
+              title: Text(itemName),
+              subtitle: Text(item['description']),
+              trailing: FractionallySizedBox(
+                widthFactor: 0.25, // 20% of the parent ListTile width
+                heightFactor: 1.5, // Takes full height of the parent ListTile
+                child: ClipRRect(
+                  child: Image.asset(
+                    item['image'],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
           );
         },
