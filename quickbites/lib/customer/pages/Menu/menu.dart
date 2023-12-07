@@ -29,7 +29,8 @@ Map<String, Map<String, dynamic>> restaurants = {
         "price": 2.89,
       },
       "Cinnabon Delights 12 Pack": {
-        "description": "Chalupas",
+        "description":
+            "Warm donut holes filled with Cinnabon® signature cream cheese frosting, and dusted in Makara Cinnamon sugar",
         "image":
             "lib/customer/pages/Menu/assets/tacobell/cinnabon_delights.jpg",
         "price": 6.89,
@@ -121,67 +122,67 @@ Map<String, Map<String, dynamic>> restaurants = {
       "1/4 lb Popcorn Shrimp Combo": {
         "description":
             "Crunchy, fresh, and full of flavor. A taste of the sea right at your fingertips. Comes with a biscuit and a side of your choice.",
-        "image": "lib/customer/pages/Menu/assets/popeyes/popcornshrimp.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/popcornshrimp.jpg",
         "price": 10.39,
       },
       "5 Tenders Combo": {
         "description":
             "Juicy, tender, and full of flavor. Comes with a biscuit and a side of your choice.",
-        "image": "lib/customer/pages/Menu/assets/popeyes/tenders.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/tenders.jpg",
         "price": 11.49,
       },
       "8 Chicken Nuggets Combo": {
         "description":
             "The tenders in bite size! Extra crispiness just for you. Comes with a biscuit and a side of your choice.",
-        "image": "lib/customer/pages/Menu/assets/popeyes/nuggets.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/nuggets.jpg",
         "price": 8.89,
       },
       "12 Wings Combo": {
         "description":
             "Crispy, juicy, and full of flavor. Comes with a biscuit and a side of your choice. Get in tossed in your favorite sauce!",
-        "image": "lib/customer/pages/Menu/assets/popeyes/friedchicken.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/friedchicken.jpg",
         "price": 13.79,
       },
       "Oreo Cheesecake Cup": {
         "description":
             "Oreo cheesecake on an oreo crust topped with oreo chunks! Need we say more?",
-        "image": "lib/customer/pages/Menu/assets/popeyes/oreocheesecake.png",
+        "image": "lib/customer/pages/Menu/assets/popeyes/oreocheesecake.jpg",
         "price": 3.79,
       },
     },
     "distance": 2.5,
     "rating": 3.5,
   },
-  "Wendy's": {
+  "Wendys": {
     "menu": {
       "Baconator": {
         "description":
             "A feast for carnivores! A 1/2 lb patty topped with 6 strips of bacon, American cheese, ketchup, and mayo.",
-        "image": "lib/customer/pages/Menu/assets/wendys/baconator.png",
+        "image": "lib/customer/pages/Menu/assets/wendys/baconator.jpg",
         "price": 7.99,
       },
       "Spicy Chicken Nuggets": {
         "description": "A medley of spices combined with a juicy chicken.",
-        "image": "lib/customer/pages/Menu/assets/wendys/spicynuggets.png",
+        "image": "lib/customer/pages/Menu/assets/wendys/spicynuggets.jpg",
         "price": 4.89,
       },
       "Ghost Pepper Ranch Chicken Sandwich": {
         "description":
             "A spicy chicken sandwich with ghost pepper ranch. You might become a ghost after eating this.",
         "image":
-            "lib/customer/pages/Menu/assets/wendys/ghostpeppersandwich.png",
+            "lib/customer/pages/Menu/assets/wendys/ghostpeppersandwich.jpg",
         "price": 6.99,
       },
       "Apple Pecan Salad": {
         "description":
             "Lettuce, apple bites, pecans, cranberries, blue cheese, and some chicken. What more do you need?",
-        "image": "lib/customer/pages/Menu/assets/wendys/applepecansalad.png",
+        "image": "lib/customer/pages/Menu/assets/wendys/applepecansalad.jpg",
         "price": 8.29,
       },
       "Peppermint Frosty": {
         "description":
             "Peppermint combined with our signature vanilla frosty. This'll put a pep in YOUR step.",
-        "image": "lib/customer/pages/Menu/assets/wendys/peppermintfrosty.png",
+        "image": "lib/customer/pages/Menu/assets/wendys/peppermintfrosty.jpg",
         "price": 2.09,
       },
     },
@@ -193,20 +194,41 @@ Map<String, Map<String, dynamic>> restaurants = {
 class MenuScreen extends StatelessWidget {
   final String restaurantName;
 
-  //menu screen is going to need to display the restauant name at the top, and then the menu items that have a check box on them.ill
+  //menu screen is going to need to display the restaurant name at the top, and then the menu items that have a check box on them.ill
 
   const MenuScreen({Key? key, required this.restaurantName}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //below variable will get the menu items for the restaurant in "restaurantName"
+    final restaurantMenu =
+        restaurants[restaurantName]!['menu'] as Map<String, dynamic>? ?? {};
     return Scaffold(
       appBar: AppBar(
         title: Text(restaurantName),
       ),
-      body: const Center(
-        child: Text(
-          'Menu Items',
-          style: TextStyle(fontSize: 24),
-        ),
+      body: ListView.builder(
+        itemCount: restaurantMenu.length,
+        itemBuilder: (BuildContext context, int index) {
+          String itemName = restaurantMenu.keys.elementAt(index);
+          var item = restaurantMenu[itemName];
+
+          return ListTile(
+            leading: Checkbox(
+              value: false, //needs to be replaced with state management logic
+              onChanged: (bool? value) {
+                //logic to handle checkbox change should go here
+              },
+            ),
+            title: Text(itemName),
+            subtitle: Text(item['description']),
+            trailing: Image.asset(
+              item['image'],
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
+          );
+        },
       ),
     );
   }
