@@ -25,8 +25,8 @@ class CustomerDashBoardApp extends StatelessWidget {
         '/wendysMenu': (context) => const MenuScreen(
               restaurantName: "Wendys",
             ),
-        '/orderConfirm': (context) => const OrderConfirmation(),
-        '/addCard': (context) => AddCardScreen(),
+        '/orderConfirm': (context) => OrderConfirmation(),
+        '/addCard': (context) => const AddCardScreen(),
       },
       theme: ThemeData(
         appBarTheme: const AppBarTheme(

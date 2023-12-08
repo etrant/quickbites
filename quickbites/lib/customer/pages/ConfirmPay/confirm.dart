@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quickbites/customer/pages/Checkout/checkout.dart';
 import 'package:quickbites/customer/order_tracking/widgets/delivery_progress_bar.dart';
+import 'package:quickbites/customer/pages/Menu/menu.dart';
 // import 'package:quickbites/customer/pages/Dashboard/dashboard.dart';
 
 class OrderConfirmation extends StatefulWidget {
@@ -14,11 +16,12 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
 
   @override
   Widget build(BuildContext context) {
+    final order = Provider.of<OrderProvider>(context).currentOrder;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Confirmation (Restaurant Name)',
-          style: TextStyle(
+        title: Text(
+          'Confirmation (${order.restaurantName})\n${order.address}',
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -36,7 +39,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Order # Placed',
                       style: TextStyle(
                         fontSize: 18,
@@ -44,8 +47,9 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    CheckoutItemWidget(),
-                    isTracking ? DeliveryProgessBar() : Text(''),
+                    for (var item in order.items.values)
+                      CheckoutItemWidget(orderItem: item),
+                    isTracking ? const DeliveryProgessBar() : const Text(''),
                     const SizedBox(
                       height: 40,
                     ),
@@ -53,10 +57,10 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                       child: Container(
                         width: 400,
                         padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Column(
                             children: [
                               Text(
@@ -84,10 +88,10 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                     Center(
                       child: Container(
                         width: 400,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                         ),
-                        child: Column(
+                        child: const Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -172,7 +176,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Our Drivers?",
                       style: TextStyle(
                         fontSize: 18,
@@ -182,7 +186,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       "They are some of the best in town!!",
                       style: TextStyle(
                         fontSize: 18,
@@ -191,14 +195,14 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                       ),
                     ),
                     !isTracking
-                        ? Text(
+                        ? const Text(
                             "Start tracking your order by clicking the button below",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
                             ),
                           )
-                        : Text(''),
+                        : const Text(''),
                   ],
                 ),
               ),

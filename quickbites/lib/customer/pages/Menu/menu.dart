@@ -226,7 +226,7 @@ class Order {
       this.address = '',
       this.orderTotal = 0.0,
       Map<String, OrderItem>? items})
-      : this.items = items ?? {};
+      : items = items ?? {};
 
   void addItem(String itemName, OrderItem item) {
     items[itemName] = item;
@@ -340,7 +340,12 @@ class _MenuScreenState extends State<MenuScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(restaurantName),
+        centerTitle: true,
+        title: Text(
+          restaurantName,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Column(
         children: [
@@ -361,7 +366,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   child: Column(
                     children: [
                       ListTile(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: const EdgeInsets.all(10.0),
                         leading: Checkbox(
                           value: isCheckedList[index],
                           checkColor: Colors.black,
@@ -392,7 +397,8 @@ class _MenuScreenState extends State<MenuScreen> {
                           },
                         ),
                         title: Text(itemName),
-                        subtitle: Text(item['description']),
+                        subtitle: Text(item['description'] +
+                            '\n\$${item['price'].toStringAsFixed(2)}'),
                         trailing: FractionallySizedBox(
                           widthFactor: 0.25,
                           heightFactor: 1.5,
@@ -412,13 +418,12 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
           // ignore: sized_box_for_whitespace
           if (isAnyItemSelected())
-            Container(
+            SizedBox(
               width: sixtyPercentWidth,
               height: 60.0,
               // :D
               child: ElevatedButton(
                 onPressed: () {
-                  // orderService.createOrder();       //uncomment this out later!
                   Navigator.push(
                     context,
                     MaterialPageRoute(

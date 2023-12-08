@@ -1,15 +1,14 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quickbites/customer/pages/Checkout/services/add_order.dart';
 import 'package:quickbites/customer/pages/Checkout/services/addcard.dart';
 import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
-import 'package:quickbites/customer/pages/Dashboard/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:quickbites/customer/pages/Menu/menu.dart';
+import 'package:quickbites/customer/pages/Checkout/services/add_order.dart';
 
 class CheckoutScreen extends StatelessWidget {
+  // final OrderService orderService = OrderService();
   CheckoutScreen({Key? key});
 
   @override
@@ -17,24 +16,13 @@ class CheckoutScreen extends StatelessWidget {
     final order = Provider.of<OrderProvider>(context).currentOrder;
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            'Checkout (${order.restaurantName})',
-            style: const TextStyle(
-                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.home_outlined, color: Colors.black),
-            color: Colors.black,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CustomerDashBoardApp(),
-                ),
-              );
-            },
-          )),
+        title: Text(
+          'Checkout (${order.restaurantName})',
+          style: const TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       body: Column(
         children: [
           Expanded(
@@ -51,9 +39,8 @@ class CheckoutScreen extends StatelessWidget {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
                     ),
-                    const CheckoutItemWidget(),
-                    const CheckoutItemWidget(),
-                    const CheckoutItemWidget(),
+                    for (var item in order.items.values)
+                      CheckoutItemWidget(orderItem: item),
                     const Text("Payments",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
@@ -63,18 +50,18 @@ class CheckoutScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddCardScreen(),
+                            builder: (context) => const AddCardScreen(),
                           ),
                         );
                       },
                       dense: false,
-                      contentPadding: EdgeInsets.all(16.0),
-                      leading: Icon(Icons.add_card_outlined,
+                      contentPadding: const EdgeInsets.all(16.0),
+                      leading: const Icon(Icons.add_card_outlined,
                           size: 45, color: Colors.black),
-                      title: Text('Add a Payment Method',
+                      title: const Text('Add a Payment Method',
                           style: TextStyle(fontSize: 18)),
-                      trailing:
-                          Icon(Icons.arrow_forward_ios, color: Colors.black),
+                      trailing: const Icon(Icons.arrow_forward_ios,
+                          color: Colors.black),
                     ),
                     const SavedPayments(),
                   ],
@@ -89,7 +76,7 @@ class CheckoutScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.75,
               child: ElevatedButton(
                 onPressed: () {
-                  // orderService.createOrder();       //uncomment this out later!
+                  // orderService.createOrder(context); //uncomment this out later!
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -105,10 +92,10 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.all(16.0),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Place order',
                       style: TextStyle(
                         fontSize: 20,
@@ -116,8 +103,8 @@ class CheckoutScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$10.00',
-                      style: TextStyle(
+                      '\$${order.orderTotal.toStringAsFixed(2)}',
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                       ),
@@ -134,24 +121,25 @@ class CheckoutScreen extends StatelessWidget {
 }
 
 class CheckoutItemWidget extends StatelessWidget {
-  const CheckoutItemWidget({Key? key});
+  final OrderItem orderItem;
+  const CheckoutItemWidget({Key? key, required this.orderItem});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       dense: false,
       contentPadding: const EdgeInsets.all(16.0),
-      title: const Text('Item',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-      subtitle: const Text(
-        'Item Description\n\$10.00',
+      title: Text(orderItem.name,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      subtitle: Text(
+        '${orderItem.description}\n\$${orderItem.price.toStringAsFixed(2)}',
       ),
       trailing: FractionallySizedBox(
         widthFactor: 0.25, // 20% of the parent ListTile width
         heightFactor: 1.5, // Takes full height of the parent ListTile
         child: ClipRRect(
           child: Image.asset(
-            'lib/customer/pages/Menu/assets/wendys/baconator.jpg',
+            orderItem.imagePath,
             fit: BoxFit.cover,
           ),
         ),
@@ -200,29 +188,27 @@ class SavedPayments extends StatelessWidget {
       builder: (context, snapshot) {
         try {
           if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-            return Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Saved Payments",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Saved Payments",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                for (String last4Digits in snapshot.data!)
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.credit_card_outlined,
+                        size: 24,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(width: 8.0),
+                      Text("*$last4Digits",
+                          style: const TextStyle(fontSize: 16)),
+                    ],
                   ),
-                  for (String last4Digits in snapshot.data!)
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.credit_card_outlined,
-                          size: 24,
-                          color: Colors.black,
-                        ),
-                        const SizedBox(width: 8.0),
-                        Text("*$last4Digits",
-                            style: const TextStyle(fontSize: 16)),
-                      ],
-                    ),
-                ],
-              ),
+              ],
             );
           } else {
             return Container(
@@ -232,7 +218,7 @@ class SavedPayments extends StatelessWidget {
           }
         } catch (e) {
           print('Error: $e');
-          return Text("Error occurred");
+          return const Text("Error occurred");
         }
       },
     );

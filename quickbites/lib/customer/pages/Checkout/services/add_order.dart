@@ -1,17 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quickbites/customer/order_tracking/models/order.dart';
+import 'package:quickbites/customer/pages/Menu/menu.dart';
 
 class OrderService {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  void createOrder() async {
-    ItemOrder newOrder = const ItemOrder(
-      orderitems: ["Supreme Chalupa"],
-      orderTotal: 5.60,
-      restaurantName: "Taco Bell",
-      restaurantAddress: "429 Ponce De Leon Ave NE",
+  void createOrder(BuildContext context) async {
+    final order = Provider.of<OrderProvider>(context).currentOrder;
+    ItemOrder newOrder = ItemOrder(
+      orderitems: order.items.keys.toList(),
+      orderTotal: order.orderTotal,
+      restaurantName: order.restaurantName,
+      restaurantAddress: order.address,
+      restaurantLatitude: order.latitude,
+      restaurantLongitude: order.longitude,
     );
     await FirebaseFirestore.instance
         .collection('orders')
