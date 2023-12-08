@@ -28,3 +28,33 @@ flutter:
 
   assets:
   - .env
+  - lib/customer/pages/Dashboard/assets/tacobell.jpg
+  - lib/customer/pages/Dashboard/assets/zaxbys.jpg
+  - lib/customer/pages/Dashboard/assets/redlobster.jpg
+  - lib/customer/pages/Dashboard/assets/wendys.jpg
+  - lib/customer/pages/Dashboard/assets/popeyes.jpg
+  - lib/customer/pages/Menu/assets/tacobell/beefy_five_layer.jpg
+  - lib/customer/pages/Menu/assets/tacobell/cinnabon_delights.jpg
+  - lib/customer/pages/Menu/assets/tacobell/crunchwrap_supreme.jpg
+  - lib/customer/pages/Menu/assets/tacobell/crunchy_taco.jpg
+  - lib/customer/pages/Menu/assets/tacobell/medium_drink.jpg
+  - lib/customer/pages/Menu/assets/zaxbys/big_zax.jpg
+  - lib/customer/pages/Menu/assets/zaxbys/funnel_cake.jpg
+  - lib/customer/pages/Menu/assets/zaxbys/house_zalad.jpg
+  - lib/customer/pages/Menu/assets/zaxbys/loaded_fries.jpg
+  - lib/customer/pages/Menu/assets/zaxbys/philly.jpg
+  - lib/customer/pages/Menu/assets/redlobster/biscuits.jpg
+  - lib/customer/pages/Menu/assets/redlobster/brownie_overboard.jpg
+  - lib/customer/pages/Menu/assets/redlobster/cajun_linguini.jpg
+  - lib/customer/pages/Menu/assets/redlobster/ny_strip.jpg
+  - lib/customer/pages/Menu/assets/redlobster/twin_maine.jpg
+  - lib/customer/pages/Menu/assets/popeyes/friedchicken.jpg
+  - lib/customer/pages/Menu/assets/popeyes/nuggets.jpg
+  - lib/customer/pages/Menu/assets/popeyes/oreocheesecake.jpg
+  - lib/customer/pages/Menu/assets/popeyes/popcornshrimp.jpg
+  - lib/customer/pages/Menu/assets/popeyes/tenders.jpg
+  - lib/customer/pages/Menu/assets/wendys/applepecansalad.jpg
+  - lib/customer/pages/Menu/assets/wendys/baconator.jpg
+  - lib/customer/pages/Menu/assets/wendys/ghostpeppersandwich.jpg
+  - lib/customer/pages/Menu/assets/wendys/peppermintfrosty.jpg
+  - lib/customer/pages/Menu/assets/wendys/spicynuggets.jpg

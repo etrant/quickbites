@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quickbites/auth/pages/login_or_register.dart';
 import 'package:quickbites/customer/pages/Checkout/services/addcard.dart';
 import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
 import 'package:quickbites/customer/pages/Menu/menu.dart';
@@ -46,14 +48,60 @@ class CustomerDashBoardApp extends StatelessWidget {
 class CustomerDashboard extends StatelessWidget {
   const CustomerDashboard({super.key});
 
+  Future<void> signUserOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      // Navigate to the login screen or any other screen after signing out.
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginOrRegisterPage(),
+        ),
+      ); // Replace '/login' with the actual login route.
+    } catch (e) {
+      print("Error signing out: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'QuickBites',
-          textAlign: TextAlign.center,
-        ),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () => signUserOut(context),
+              icon: const Icon(Icons.logout))
+        ],
+      ),
+      drawer: Drawer(
+        child: Container(
+            child: ListView(
+          children: [
+            DrawerHeader(
+              child: Center(
+                child: Text(
+                  "QuickBites",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+            ),
+            // change this
+            ListTile(
+              leading: Icon(Icons.food_bank),
+              // change this to driver
+              title: Text(
+                "Driver",
+                style: TextStyle(fontSize: 16),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  // change this
+                  MaterialPageRoute(builder: (context) => Placeholder()),
+                );
+              },
+            )
+          ],
+        )),
       ),
       body: const Center(
           child: Column(

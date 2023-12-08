@@ -131,7 +131,7 @@ class CheckoutScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$$orderTotal',
+                      '\$' + orderTotal.toStringAsFixed(2),
                       style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
@@ -168,7 +168,7 @@ class CheckoutItemWidget extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        '${orderItem.description}\n\$${orderItem.price}',
+        '${orderItem.description}\n\$${orderItem.price.toStringAsFixed(2)}',
       ),
       trailing: FractionallySizedBox(
         widthFactor: 0.25, // 20% of the parent ListTile width
