@@ -272,6 +272,18 @@ class OrderProvider with ChangeNotifier {
         restaurantName, latitude, longitude, address);
     notifyListeners();
   }
+
+  void resetOrder() {
+    _currentOrder = Order(
+      restaurantName: _currentOrder.restaurantName,
+      latitude: _currentOrder.latitude,
+      longitude: _currentOrder.longitude,
+      address: _currentOrder.address,
+      items: {},
+      orderTotal: 0.0,
+    );
+    notifyListeners();
+  }
 }
 
 class MenuScreen extends StatefulWidget {
@@ -305,10 +317,18 @@ class _MenuScreenState extends State<MenuScreen> {
       double latitude = restaurantDetails['latitude'];
       double longitude = restaurantDetails['longitude'];
       String address = restaurantDetails['address'];
+      context.read<OrderProvider>().resetOrder();
       context
           .read<OrderProvider>()
           .setRestaurantDetails(restaurantName, latitude, longitude, address);
     }
+  }
+
+  @override
+  void dispose() {
+    //reset the order when we leave the page
+    context.read<OrderProvider>().resetOrder();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
