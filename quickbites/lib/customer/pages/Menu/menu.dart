@@ -38,6 +38,7 @@ Map<String, Map<String, dynamic>> restaurants = {
       },
     },
     "distance": 1.0,
+    "address": "2420 Druid Hills Rd NE",
     "latitude": 33.82719851139403,
     "longitude": -84.3257637236474,
     "rating": 3.7,
@@ -79,6 +80,7 @@ Map<String, Map<String, dynamic>> restaurants = {
     "longitude": -84.38121570364584,
     "distance": 2.5,
     "rating": 4.2,
+    "address": "4388 Roswell Rd NE",
   },
   "Red Lobster": {
     "menu": {
@@ -117,6 +119,7 @@ Map<String, Map<String, dynamic>> restaurants = {
     "latitude": 34.05928328324028,
     "longitude": -84.56540035008841,
     "rating": 4.3,
+    "address": "2055 Pleasant Hill Rd",
   },
   "Popeyes": {
     "menu": {
@@ -153,6 +156,9 @@ Map<String, Map<String, dynamic>> restaurants = {
     },
     "distance": 2.5,
     "rating": 3.5,
+    "latitude": 33.805908280265704,
+    "longitude": -84.50065791541456,
+    "address": "3349 M.L.K. Jr Dr SW",
   },
   "Wendys": {
     "menu": {
@@ -189,6 +195,9 @@ Map<String, Map<String, dynamic>> restaurants = {
     },
     "distance": 7.1,
     "rating": 4.3,
+    "latitude": 33.70865202248627,
+    "longitude": -84.40707387163917,
+    "address": "2096 Metropolitan Pkwy SW",
   },
 };
 
@@ -204,6 +213,11 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   final String restaurantName;
   List<bool> isCheckedList = [];
+
+  //method to see if a menu item was selected, and if so, the checkout button should appear.
+  bool isAnyItemSelected() {
+    return isCheckedList.any((item) => item);
+  }
 
   Map<String, Map<String, dynamic>> order = {};
 
@@ -273,41 +287,42 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
           ),
           // ignore: sized_box_for_whitespace
-          Container(
-            width: sixtyPercentWidth,
-            height: 60.0,
-            child: ElevatedButton(
-              onPressed: () {
-                // orderService.createOrder();       //uncomment this out later!
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CheckoutScreen(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 40),
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                padding: const EdgeInsets.all(16.0),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Checkout',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
+          if (isAnyItemSelected())
+            Container(
+              width: sixtyPercentWidth,
+              height: 60.0,
+              child: ElevatedButton(
+                onPressed: () {
+                  // orderService.createOrder();       //uncomment this out later!
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CheckoutScreen(),
                     ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 40),
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                ],
+                  padding: const EdgeInsets.all(16.0),
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Checkout',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
           const SizedBox(height: 20),
         ],
       ),
