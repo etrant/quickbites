@@ -6,6 +6,7 @@ import 'package:quickbites/customer/pages/Checkout/services/addcard.dart';
 import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
 import 'package:quickbites/customer/pages/Dashboard/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:quickbites/customer/pages/Menu/menu.dart';
 
 class CheckoutScreen extends StatelessWidget {
   CheckoutScreen({Key? key});

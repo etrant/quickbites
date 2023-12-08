@@ -216,6 +216,7 @@ class Order {
   final double latitude;
   final double longitude;
   final String address;
+  double orderTotal;
   Map<String, OrderItem> items;
 
   Order(
@@ -223,15 +224,22 @@ class Order {
       this.latitude = 0.0,
       this.longitude = 0.0,
       this.address = '',
+      this.orderTotal = 0.0,
       Map<String, OrderItem>? items})
       : this.items = items ?? {};
 
   void addItem(String itemName, OrderItem item) {
     items[itemName] = item;
+    orderTotal += item.price;
+    print(orderTotal); //for debug
   }
 
   void removeItem(String itemName) {
-    items.remove(itemName);
+    if (items.containsKey(itemName)) {
+      orderTotal -= items[itemName]!.price;
+      items.remove(itemName);
+      print(orderTotal); //for debug
+    }
   }
 }
 
@@ -319,8 +327,12 @@ class _MenuScreenState extends State<MenuScreen> {
                             if (value == true) {
                               orderProvider.addItem(
                                   itemName,
-                                  OrderItem(itemName, item['description'],
-                                      item['image'], item['price']));
+                                  OrderItem(
+                                    itemName,
+                                    item['description'],
+                                    item['image'],
+                                    item['price'],
+                                  ));
 
                               print(context
                                   .read<OrderProvider>()
@@ -374,12 +386,20 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   padding: const EdgeInsets.all(16.0),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Checkout',
                       style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Text(
+                      '\$${orderProvider.currentOrder.orderTotal.toStringAsFixed(2)}',
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                       ),
