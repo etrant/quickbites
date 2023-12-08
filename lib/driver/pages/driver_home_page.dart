@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names, prefer_collection_literals
+
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +18,7 @@ const double CAMERA_TILT = 80;
 const double CAMERA_BEARING = 30;
 
 class DriverHomePage extends StatefulWidget {
-  DriverHomePage({super.key});
+  const DriverHomePage({super.key});
 
   @override
   State<DriverHomePage> createState() => _DriverHomePageState();
@@ -61,13 +63,13 @@ class _DriverHomePageState extends State<DriverHomePage> {
   void showPinsOnMap() {
     myMarkers.add(
       Marker(
-        markerId: MarkerId('sourcePin'),
+        markerId: const MarkerId('sourcePin'),
         position: currentLocation!,
       ),
     );
     myMarkers.add(
       Marker(
-        markerId: MarkerId('destPin'),
+        markerId: const MarkerId('destPin'),
         position: destLocation!,
       ),
     );
@@ -81,16 +83,16 @@ class _DriverHomePageState extends State<DriverHomePage> {
     );
 
     if (result.status == 'OK') {
-      result.points.forEach((PointLatLng point) {
+      for (var point in result.points) {
         polylineCoordinates.add(
           LatLng(point.latitude, point.longitude),
         );
-      });
+      }
 
       setState(() {
         myPolylines.add(Polyline(
             width: 10,
-            polylineId: PolylineId('polyLine'),
+            polylineId: const PolylineId('polyLine'),
             color: Colors.blue,
             points: polylineCoordinates));
       });
@@ -101,7 +103,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
     mapController = controller;
   }
 
-  late Stopwatch _stopwatch = Stopwatch();
+  late final Stopwatch _stopwatch = Stopwatch();
   late Timer _timer;
 
   bool driving = false;
@@ -109,7 +111,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
     driving = !driving;
     if (driving) {
       _stopwatch.start();
-      _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
         setState(() {}); // Update the UI every second
       });
     } else {
@@ -131,8 +133,8 @@ class _DriverHomePageState extends State<DriverHomePage> {
   @override
   void initState() {
     super.initState();
-    this.setInitialLocation();
-    this.showPinsOnMap();
+    setInitialLocation();
+    showPinsOnMap();
 
     bounds = LatLngBounds(
       southwest: currentLocation!,
@@ -145,7 +147,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
     );
 
     polylinePoints = PolylinePoints();
-    this.setPolylines();
+    setPolylines();
   }
 
   @override
@@ -165,31 +167,30 @@ class _DriverHomePageState extends State<DriverHomePage> {
         ],
       ),
       drawer: Drawer(
-        child: Container(
-            child: ListView(
+        child: ListView(
           children: [
-            DrawerHeader(
-              child: Center(
-                child: Text(
-                  "QuickBites",
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
+        const DrawerHeader(
+          child: Center(
+            child: Text(
+              "QuickBites",
+              style: TextStyle(fontSize: 25),
             ),
-            ListTile(
-              leading: Icon(Icons.food_bank),
-              title: Text(
-                "Customer",
-                style: TextStyle(fontSize: 16),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => Placeholder()),
-                );
-              },
-            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.food_bank),
+          title: const Text(
+            "Customer",
+            style: TextStyle(fontSize: 16),
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const Placeholder()),
+            );
+          },
+        ),
           ],
-        )),
+        ),
       ),
       body: Stack(
         children: [
@@ -215,7 +216,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
             right: 0,
             bottom: 0,
             child: Container(
-              padding: EdgeInsets.all(25),
+              padding: const EdgeInsets.all(25),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -227,25 +228,25 @@ class _DriverHomePageState extends State<DriverHomePage> {
                     children: [
                       Text(
                         getFormattedTime(),
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
-                      Text(
+                      const Text(
                         " Current Drive",
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
                   ),
-                  SizedBox(height: 25),
-                  Text(
+                  const SizedBox(height: 25),
+                  const Text(
                     "Resturant: Chipotle",
                     style: TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     "3 Items in order",
                     style: TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   MyButton(
                     text: driving ? "End Drive" : "Start Drive",
                     onTap: toggleTime,

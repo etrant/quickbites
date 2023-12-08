@@ -13,16 +13,11 @@ class _SplashPageState extends State<SplashPage>
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => AuthGate()),
+        MaterialPageRoute(builder: (_) => const AuthGate()),
       );
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -31,8 +26,8 @@ class _SplashPageState extends State<SplashPage>
       body: Container(
         width: double.infinity,
         // 'Red Devil' by Humi's request
-        decoration: BoxDecoration(color: Color(0xff860111)),
-        child: Column(
+        decoration: const BoxDecoration(color: Color(0xff860111)),
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.food_bank, size: 100, color: Colors.white),

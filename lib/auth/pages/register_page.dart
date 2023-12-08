@@ -26,13 +26,13 @@ class _RegisterPageState extends State<RegisterPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) =>
-          Center(child: const CircularProgressIndicator()),
+          const Center(child: CircularProgressIndicator()),
     );
 
     try {
       if (passwordController.text != confirmPasswordController.text) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text("Passwords don't match."),
           ),
         );
