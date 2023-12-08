@@ -272,6 +272,7 @@ class _MenuScreenState extends State<MenuScreen> {
               },
             ),
           ),
+          // ignore: sized_box_for_whitespace
           Container(
             width: sixtyPercentWidth,
             height: 60.0,
