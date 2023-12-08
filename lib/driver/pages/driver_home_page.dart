@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,9 +11,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:quickbites/auth/components/my_button.dart';
 
 // GSU Aderhold
-const LatLng SOURCE_LOCATION = LatLng(33.754729342462596, -84.38796282423505);
+late LatLng SOURCE_LOCATION = LatLng(33.77397198231519, -84.36180263915438);
 // Chipotle on Ponce
-const LatLng DEST_LOCATION = LatLng(33.77397198231519, -84.36180263915438);
+late LatLng DEST_LOCATION = LatLng(33.754729342462596, -84.38796282423505);
 const double CAMERA_ZOOM = 13.5;
 const double CAMERA_TILT = 80;
 const double CAMERA_BEARING = 30;
@@ -46,6 +47,22 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
   void signUserOut() {
     FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> setGlobalPosition() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('orders').limit(1).get();
+
+    var orderInfo = querySnapshot.docs[0].data() as Map<String, dynamic>;
+
+    SOURCE_LOCATION = LatLng(
+      orderInfo['restaurant_address'][0],
+      orderInfo['restaurant_address'][1],
+    );
+    DEST_LOCATION = LatLng(
+      orderInfo['delivery_address'][0],
+      orderInfo['delivery_address'][1],
+    );
   }
 
   void setInitialLocation() {
@@ -90,11 +107,13 @@ class _DriverHomePageState extends State<DriverHomePage> {
       }
 
       setState(() {
-        myPolylines.add(Polyline(
-            width: 10,
-            polylineId: const PolylineId('polyLine'),
-            color: Colors.blue,
-            points: polylineCoordinates));
+        myPolylines.add(
+          Polyline(
+              width: 10,
+              polylineId: const PolylineId('polyLine'),
+              color: Colors.blue,
+              points: polylineCoordinates),
+        );
       });
     }
   }
@@ -133,9 +152,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
   @override
   void initState() {
     super.initState();
+    setGlobalPosition();
     setInitialLocation();
     showPinsOnMap();
-
     bounds = LatLngBounds(
       southwest: currentLocation!,
       northeast: destLocation!,
@@ -145,7 +164,6 @@ class _DriverHomePageState extends State<DriverHomePage> {
       (bounds.northeast.latitude + bounds.southwest.latitude) / 2,
       (bounds.northeast.longitude + bounds.southwest.longitude) / 2,
     );
-
     polylinePoints = PolylinePoints();
     setPolylines();
   }
@@ -163,32 +181,35 @@ class _DriverHomePageState extends State<DriverHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
         actions: <Widget>[
-          IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
+          IconButton(
+            onPressed: signUserOut,
+            icon: const Icon(Icons.logout),
+          )
         ],
       ),
       drawer: Drawer(
         child: ListView(
           children: [
-        const DrawerHeader(
-          child: Center(
-            child: Text(
-              "QuickBites",
-              style: TextStyle(fontSize: 25),
+            const DrawerHeader(
+              child: Center(
+                child: Text(
+                  "QuickBites",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
             ),
-          ),
-        ),
-        ListTile(
-          leading: const Icon(Icons.food_bank),
-          title: const Text(
-            "Customer",
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const Placeholder()),
-            );
-          },
-        ),
+            ListTile(
+              leading: const Icon(Icons.food_bank),
+              title: const Text(
+                "Customer",
+                style: TextStyle(fontSize: 16),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const Placeholder()),
+                );
+              },
+            ),
           ],
         ),
       ),
