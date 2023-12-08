@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quickbites/customer/pages/Checkout/checkout.dart';
 import 'package:quickbites/customer/pages/Dashboard/dashboard.dart';
+import 'package:quickbites/customer/pages/Menu/menu.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => OrderProvider(Order()),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

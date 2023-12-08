@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quickbites/customer/pages/Checkout/checkout.dart';
 
 Map<String, Map<String, dynamic>> restaurants = {
@@ -201,6 +202,55 @@ Map<String, Map<String, dynamic>> restaurants = {
   },
 };
 
+class OrderItem {
+  final String name;
+  final String description;
+  final String imagePath;
+  final double price;
+
+  OrderItem(this.name, this.description, this.imagePath, this.price);
+}
+
+class Order {
+  final String restaurantName;
+  final double latitude;
+  final double longitude;
+  final String address;
+  Map<String, OrderItem> items;
+
+  Order(
+      {this.restaurantName = '',
+      this.latitude = 0.0,
+      this.longitude = 0.0,
+      this.address = '',
+      Map<String, OrderItem>? items})
+      : this.items = items ?? {};
+
+  void addItem(String itemName, OrderItem item) {
+    items[itemName] = item;
+  }
+
+  void removeItem(String itemName) {
+    items.remove(itemName);
+  }
+}
+
+class OrderProvider with ChangeNotifier {
+  Order _currentOrder;
+  OrderProvider(this._currentOrder);
+
+  Order get currentOrder => _currentOrder;
+  void addItem(String itemName, OrderItem item) {
+    _currentOrder.addItem(itemName, item);
+    notifyListeners();
+  }
+
+  void removeItem(String itemName) {
+    _currentOrder.removeItem(itemName);
+    notifyListeners();
+  }
+}
+
 class MenuScreen extends StatefulWidget {
   final String restaurantName;
 
@@ -226,6 +276,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context);
     final restaurantMenu =
         restaurants[restaurantName]!['menu'] as Map<String, dynamic>? ?? {};
     double screenWidth = MediaQuery.of(context).size.width;
@@ -265,6 +316,19 @@ class _MenuScreenState extends State<MenuScreen> {
                                 isCheckedList[index] = !isCheckedList[index];
                               });
                             }
+                            if (value == true) {
+                              orderProvider.addItem(
+                                  itemName,
+                                  OrderItem(itemName, item['description'],
+                                      item['image'], item['price']));
+
+                              print(context
+                                  .read<OrderProvider>()
+                                  .currentOrder
+                                  .items);
+                            } else {
+                              orderProvider.removeItem(itemName);
+                            }
                           },
                         ),
                         title: Text(itemName),
@@ -291,6 +355,7 @@ class _MenuScreenState extends State<MenuScreen> {
             Container(
               width: sixtyPercentWidth,
               height: 60.0,
+              // :D
               child: ElevatedButton(
                 onPressed: () {
                   // orderService.createOrder();       //uncomment this out later!
