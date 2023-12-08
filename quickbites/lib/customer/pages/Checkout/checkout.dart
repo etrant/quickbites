@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickbites/customer/pages/Checkout/services/add_order.dart';
@@ -12,9 +11,19 @@ import 'package:quickbites/customer/pages/Menu/menu.dart';
 class CheckoutScreen extends StatelessWidget {
   CheckoutScreen({Key? key});
 
+  final OrderService orderService = OrderService();
+
   @override
   Widget build(BuildContext context) {
     final order = Provider.of<OrderProvider>(context).currentOrder;
+    print(order.items);
+    final orderList = order.items.values.toList();
+    double orderTotal = 0;
+
+    for (var orderItem in orderList) {
+      orderTotal += orderItem.price;
+    }
+
     return Scaffold(
       appBar: AppBar(
           title: Text(
@@ -51,30 +60,44 @@ class CheckoutScreen extends StatelessWidget {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
                     ),
-                    const CheckoutItemWidget(),
-                    const CheckoutItemWidget(),
-                    const CheckoutItemWidget(),
-                    const Text("Payments",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    for (var orderItem in orderList)
+                      CheckoutItemWidget(
+                        orderItem: orderItem,
+                      ),
+                    const Text(
+                      "Payments",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     ListTile(
                       onTap: () {
                         // Use Navigator.push inside a function or anonymous function
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddCardScreen(),
+                            builder: (context) => const AddCardScreen(),
                           ),
                         );
                       },
                       dense: false,
-                      contentPadding: EdgeInsets.all(16.0),
-                      leading: Icon(Icons.add_card_outlined,
-                          size: 45, color: Colors.black),
-                      title: Text('Add a Payment Method',
-                          style: TextStyle(fontSize: 18)),
-                      trailing:
-                          Icon(Icons.arrow_forward_ios, color: Colors.black),
+                      contentPadding: const EdgeInsets.all(16.0),
+                      leading: const Icon(
+                        Icons.add_card_outlined,
+                        size: 45,
+                        color: Colors.black,
+                      ),
+                      title: const Text(
+                        'Add a Payment Method',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black,
+                      ),
                     ),
                     const SavedPayments(),
                   ],
@@ -89,7 +112,10 @@ class CheckoutScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.75,
               child: ElevatedButton(
                 onPressed: () {
-                  // orderService.createOrder();       //uncomment this out later!
+                  orderService.createOrder(
+                    context,
+                    order,
+                  ); //uncomment this out later!
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -105,10 +131,10 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.all(16.0),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Place order',
                       style: TextStyle(
                         fontSize: 20,
@@ -116,8 +142,8 @@ class CheckoutScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$10.00',
-                      style: TextStyle(
+                      '\$$orderTotal',
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                       ),
@@ -134,24 +160,33 @@ class CheckoutScreen extends StatelessWidget {
 }
 
 class CheckoutItemWidget extends StatelessWidget {
-  const CheckoutItemWidget({Key? key});
+  final OrderItem orderItem;
+  const CheckoutItemWidget({
+    Key? key,
+    required this.orderItem,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       dense: false,
       contentPadding: const EdgeInsets.all(16.0),
-      title: const Text('Item',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-      subtitle: const Text(
-        'Item Description\n\$10.00',
+      title: Text(
+        orderItem.name,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text(
+        '${orderItem.description}\n\$${orderItem.price}',
       ),
       trailing: FractionallySizedBox(
         widthFactor: 0.25, // 20% of the parent ListTile width
         heightFactor: 1.5, // Takes full height of the parent ListTile
         child: ClipRRect(
           child: Image.asset(
-            'lib/customer/pages/Menu/assets/wendys/baconator.jpg',
+            orderItem.imagePath,
             fit: BoxFit.cover,
           ),
         ),
@@ -211,7 +246,7 @@ class SavedPayments extends StatelessWidget {
                   for (String last4Digits in snapshot.data!)
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.credit_card_outlined,
                           size: 24,
                           color: Colors.black,
