@@ -1,14 +1,17 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:quickbites/auth/components/my_button.dart';
 
 // GSU Aderhold
-// Chipotle on Ponce
 const LatLng SOURCE_LOCATION = LatLng(33.754729342462596, -84.38796282423505);
+// Chipotle on Ponce
 const LatLng DEST_LOCATION = LatLng(33.77397198231519, -84.36180263915438);
-const double CAMERA_ZOOM = 14;
+const double CAMERA_ZOOM = 13.5;
 const double CAMERA_TILT = 80;
 const double CAMERA_BEARING = 30;
 
@@ -24,13 +27,11 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
   late GoogleMapController mapController;
 
-  // BitmapDescriptor? sourceIcon;
-  // BitmapDescriptor? destIcon;
-
   Set<Marker> myMarkers = Set<Marker>();
 
   LatLng? currentLocation;
   LatLng? destLocation;
+
   late LatLngBounds bounds = LatLngBounds(
     southwest: currentLocation!,
     northeast: destLocation!,
@@ -100,6 +101,33 @@ class _DriverHomePageState extends State<DriverHomePage> {
     mapController = controller;
   }
 
+  late Stopwatch _stopwatch = Stopwatch();
+  late Timer _timer;
+
+  bool driving = false;
+  void toggleTime() {
+    driving = !driving;
+    if (driving) {
+      _stopwatch.start();
+      _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+        setState(() {}); // Update the UI every second
+      });
+    } else {
+      _stopwatch.stop();
+      _stopwatch.reset();
+      _timer.cancel();
+    }
+    setState(() {});
+  }
+
+  String getFormattedTime() {
+    var hours = _stopwatch.elapsed.inHours;
+    var minutes = _stopwatch.elapsed.inMinutes % 60;
+    var seconds = _stopwatch.elapsed.inSeconds % 60;
+
+    return '${hours.toString().padLeft(2, '0')}h:${minutes.toString().padLeft(2, '0')}m:${seconds.toString().padLeft(2, '0')}s';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -136,7 +164,33 @@ class _DriverHomePageState extends State<DriverHomePage> {
           IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
         ],
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: Container(
+            child: ListView(
+          children: [
+            DrawerHeader(
+              child: Center(
+                child: Text(
+                  "QuickBites",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.food_bank),
+              title: Text(
+                "Customer",
+                style: TextStyle(fontSize: 16),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Placeholder()),
+                );
+              },
+            ),
+          ],
+        )),
+      ),
       body: Stack(
         children: [
           Positioned.fill(
@@ -156,7 +210,50 @@ class _DriverHomePageState extends State<DriverHomePage> {
               polylines: myPolylines,
             ),
           ),
-          // TODO: Info box for drive time, order. etc
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              padding: EdgeInsets.all(25),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        getFormattedTime(),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        " Current Drive",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 25),
+                  Text(
+                    "Resturant: Chipotle",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "3 Items in order",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 25),
+                  MyButton(
+                    text: driving ? "End Drive" : "Start Drive",
+                    onTap: toggleTime,
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
