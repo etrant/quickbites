@@ -16,11 +16,13 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
 
   @override
   Widget build(BuildContext context) {
-    final order = Provider.of<OrderProvider>(context).currentOrder;
+    final orderProvider = Provider.of<OrderProvider>(context).currentOrder;
+    final orderList = orderProvider.items.values.toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Confirmation (${order.restaurantName})\n${order.address}',
+          'Confirmation (${orderProvider.restaurantName})\n${orderProvider.address}',
           style: const TextStyle(
             color: Colors.black,
             fontSize: 16,
@@ -47,8 +49,10 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    for (var item in order.items.values)
-                      CheckoutItemWidget(orderItem: item),
+                    for (var orderItem in orderList)
+                      CheckoutItemWidget(
+                        orderItem: orderItem,
+                      ),
                     isTracking ? const DeliveryProgessBar() : const Text(''),
                     const SizedBox(
                       height: 40,

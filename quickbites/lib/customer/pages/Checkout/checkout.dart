@@ -11,9 +11,19 @@ class CheckoutScreen extends StatelessWidget {
   // final OrderService orderService = OrderService();
   CheckoutScreen({Key? key});
 
+  final OrderService orderService = OrderService();
+
   @override
   Widget build(BuildContext context) {
     final order = Provider.of<OrderProvider>(context).currentOrder;
+    print(order.items);
+    final orderList = order.items.values.toList();
+    double orderTotal = 0;
+
+    for (var orderItem in orderList) {
+      orderTotal += orderItem.price;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -39,11 +49,17 @@ class CheckoutScreen extends StatelessWidget {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
                     ),
-                    for (var item in order.items.values)
-                      CheckoutItemWidget(orderItem: item),
-                    const Text("Payments",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    for (var orderItem in orderList)
+                      CheckoutItemWidget(
+                        orderItem: orderItem,
+                      ),
+                    const Text(
+                      "Payments",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     ListTile(
                       onTap: () {
                         // Use Navigator.push inside a function or anonymous function
@@ -56,12 +72,21 @@ class CheckoutScreen extends StatelessWidget {
                       },
                       dense: false,
                       contentPadding: const EdgeInsets.all(16.0),
-                      leading: const Icon(Icons.add_card_outlined,
-                          size: 45, color: Colors.black),
-                      title: const Text('Add a Payment Method',
-                          style: TextStyle(fontSize: 18)),
-                      trailing: const Icon(Icons.arrow_forward_ios,
-                          color: Colors.black),
+                      leading: const Icon(
+                        Icons.add_card_outlined,
+                        size: 45,
+                        color: Colors.black,
+                      ),
+                      title: const Text(
+                        'Add a Payment Method',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black,
+                      ),
                     ),
                     const SavedPayments(),
                   ],
@@ -76,7 +101,10 @@ class CheckoutScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.75,
               child: ElevatedButton(
                 onPressed: () {
-                  // orderService.createOrder(context); //uncomment this out later!
+                  orderService.createOrder(
+                    context,
+                    order,
+                  ); //uncomment this out later!
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -103,7 +131,7 @@ class CheckoutScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$${order.orderTotal.toStringAsFixed(2)}',
+                      '\$$orderTotal',
                       style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
@@ -122,17 +150,25 @@ class CheckoutScreen extends StatelessWidget {
 
 class CheckoutItemWidget extends StatelessWidget {
   final OrderItem orderItem;
-  const CheckoutItemWidget({Key? key, required this.orderItem});
+  const CheckoutItemWidget({
+    Key? key,
+    required this.orderItem,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       dense: false,
       contentPadding: const EdgeInsets.all(16.0),
-      title: Text(orderItem.name,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      title: Text(
+        orderItem.name,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       subtitle: Text(
-        '${orderItem.description}\n\$${orderItem.price.toStringAsFixed(2)}',
+        '${orderItem.description}\n\$${orderItem.price}',
       ),
       trailing: FractionallySizedBox(
         widthFactor: 0.25, // 20% of the parent ListTile width
