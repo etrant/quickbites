@@ -16,9 +16,9 @@ class AuthGate extends StatelessWidget {
           return snapshot.hasData
               ? CustomerDashBoardApp()
               : LoginOrRegisterPage();
-          return snapshot.hasData
-              ? const DriverHomePage()
-              : const LoginOrRegisterPage();
+          // return snapshot.hasData
+          //     ? const DriverHomePage()
+          //     : const LoginOrRegisterPage();
           // return snapshot.hasData ? HomePage() : LoginOrRegisterPage();
         },
       ),

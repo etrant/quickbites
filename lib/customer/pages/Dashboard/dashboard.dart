@@ -4,6 +4,7 @@ import 'package:quickbites/auth/pages/login_or_register.dart';
 import 'package:quickbites/customer/pages/Checkout/services/addcard.dart';
 import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
 import 'package:quickbites/customer/pages/Menu/menu.dart';
+import 'package:quickbites/driver/pages/driver_home_page.dart';
 
 class CustomerDashBoardApp extends StatelessWidget {
   const CustomerDashBoardApp({super.key});
@@ -96,7 +97,7 @@ class CustomerDashboard extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   // change this
-                  MaterialPageRoute(builder: (context) => Placeholder()),
+                  MaterialPageRoute(builder: (context) => DriverHomePage()),
                 );
               },
             )
