@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) =>
-          Center(child: const CircularProgressIndicator()),
+          const Center(child: CircularProgressIndicator()),
     );
 
     try {
