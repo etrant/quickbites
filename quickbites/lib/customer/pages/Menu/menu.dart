@@ -231,14 +231,14 @@ class Order {
   void addItem(String itemName, OrderItem item) {
     items[itemName] = item;
     orderTotal += item.price;
-    print(orderTotal); //for debug
+    // print(orderTotal); //for debug
   }
 
   void removeItem(String itemName) {
     if (items.containsKey(itemName)) {
       orderTotal -= items[itemName]!.price;
       items.remove(itemName);
-      print(orderTotal); //for debug
+      // print(orderTotal); //for debug
     }
   }
 
@@ -374,18 +374,21 @@ class _MenuScreenState extends State<MenuScreen> {
                             }
                             if (value == true) {
                               orderProvider.addItem(
+                                itemName,
+                                OrderItem(
                                   itemName,
-                                  OrderItem(
-                                    itemName,
-                                    item['description'],
-                                    item['image'],
-                                    item['price'],
-                                  ));
+                                  item['description'],
+                                  item['image'],
+                                  item['price'],
+                                ),
+                              );
 
-                              print(context
-                                  .read<OrderProvider>()
-                                  .currentOrder
-                                  .items);
+                              // print(
+                              //   context
+                              //       .read<OrderProvider>()
+                              //       .currentOrder
+                              //       .items,
+                              // );
                             } else {
                               orderProvider.removeItem(itemName);
                             }
@@ -418,7 +421,6 @@ class _MenuScreenState extends State<MenuScreen> {
               // :D
               child: ElevatedButton(
                 onPressed: () {
-                  // orderService.createOrder();       //uncomment this out later!
                   Navigator.push(
                     context,
                     MaterialPageRoute(
