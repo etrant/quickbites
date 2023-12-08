@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quickbites/customer/pages/Checkout/services/add_order.dart';
 import 'package:quickbites/customer/pages/Checkout/services/addcard.dart';
 import 'package:quickbites/customer/pages/ConfirmPay/confirm.dart';
@@ -13,11 +14,12 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final order = Provider.of<OrderProvider>(context).currentOrder;
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            'Checkout (Restaurant Name)',
-            style: TextStyle(
+          title: Text(
+            'Checkout (${order.restaurantName})',
+            style: const TextStyle(
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,

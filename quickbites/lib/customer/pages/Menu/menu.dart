@@ -212,10 +212,10 @@ class OrderItem {
 }
 
 class Order {
-  final String restaurantName;
-  final double latitude;
-  final double longitude;
-  final String address;
+  String restaurantName;
+  double latitude;
+  double longitude;
+  String address;
   double orderTotal;
   Map<String, OrderItem> items;
 
@@ -241,6 +241,14 @@ class Order {
       print(orderTotal); //for debug
     }
   }
+
+  void setRestaurantDetails(String restaurantName, double latitude,
+      double longitude, String address) {
+    this.restaurantName = restaurantName;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.address = address;
+  }
 }
 
 class OrderProvider with ChangeNotifier {
@@ -255,6 +263,13 @@ class OrderProvider with ChangeNotifier {
 
   void removeItem(String itemName) {
     _currentOrder.removeItem(itemName);
+    notifyListeners();
+  }
+
+  void setRestaurantDetails(String restaurantName, double latitude,
+      double longitude, String address) {
+    _currentOrder.setRestaurantDetails(
+        restaurantName, latitude, longitude, address);
     notifyListeners();
   }
 }
@@ -283,6 +298,19 @@ class _MenuScreenState extends State<MenuScreen> {
   _MenuScreenState(this.restaurantName);
 
   @override
+  void initState() {
+    super.initState();
+    final restaurantDetails = restaurants[restaurantName];
+    if (restaurantDetails != null) {
+      double latitude = restaurantDetails['latitude'];
+      double longitude = restaurantDetails['longitude'];
+      String address = restaurantDetails['address'];
+      context
+          .read<OrderProvider>()
+          .setRestaurantDetails(restaurantName, latitude, longitude, address);
+    }
+  }
+
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context);
     final restaurantMenu =
