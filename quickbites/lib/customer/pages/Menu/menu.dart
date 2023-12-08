@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickbites/customer/pages/Checkout/checkout.dart';
 
 Map<String, Map<String, dynamic>> restaurants = {
   "Taco Bell": {
@@ -204,6 +205,8 @@ class _MenuScreenState extends State<MenuScreen> {
   final String restaurantName;
   List<bool> isCheckedList = [];
 
+  Map<String, Map<String, dynamic>> order = {};
+
   // Constructor to receive the restaurantName
   _MenuScreenState(this.restaurantName);
 
@@ -211,53 +214,101 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     final restaurantMenu =
         restaurants[restaurantName]!['menu'] as Map<String, dynamic>? ?? {};
+    double screenWidth = MediaQuery.of(context).size.width;
+    double sixtyPercentWidth = screenWidth * 0.7;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(restaurantName),
       ),
-      body: ListView.builder(
-        itemCount: restaurantMenu.length,
-        itemBuilder: (BuildContext context, int index) {
-          String itemName = restaurantMenu.keys.elementAt(index);
-          var item = restaurantMenu[itemName];
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: restaurantMenu.length,
+              itemBuilder: (BuildContext context, int index) {
+                String itemName = restaurantMenu.keys.elementAt(index);
+                var item = restaurantMenu[itemName];
 
-          // Ensure isCheckedList has enough elements to avoid index out of bounds
-          while (isCheckedList.length <= index) {
-            isCheckedList.add(false);
-          }
+                // Ensure isCheckedList has enough elements to avoid index out of bounds
+                while (isCheckedList.length <= index) {
+                  isCheckedList.add(false);
+                }
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              contentPadding: EdgeInsets.all(10.0),
-              leading: Checkbox(
-                value: isCheckedList[index],
-                checkColor: Colors.black,
-                fillColor: MaterialStateProperty.all(Colors.white),
-                onChanged: (bool? value) {
-                  if (value != null) {
-                    setState(() {
-                      isCheckedList[index] = !isCheckedList[index];
-                    });
-                  }
-                },
-              ),
-              title: Text(itemName),
-              subtitle: Text(item['description']),
-              trailing: FractionallySizedBox(
-                widthFactor: 0.25,
-                heightFactor: 1.5,
-                child: ClipRRect(
-                  child: Image.asset(
-                    item['image'],
-                    fit: BoxFit.cover,
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding: EdgeInsets.all(10.0),
+                        leading: Checkbox(
+                          value: isCheckedList[index],
+                          checkColor: Colors.black,
+                          fillColor: MaterialStateProperty.all(Colors.white),
+                          onChanged: (bool? value) {
+                            if (value != null) {
+                              setState(() {
+                                isCheckedList[index] = !isCheckedList[index];
+                              });
+                            }
+                          },
+                        ),
+                        title: Text(itemName),
+                        subtitle: Text(item['description']),
+                        trailing: FractionallySizedBox(
+                          widthFactor: 0.25,
+                          heightFactor: 1.5,
+                          child: ClipRRect(
+                            child: Image.asset(
+                              item['image'],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                );
+              },
+            ),
+          ),
+          Container(
+            width: sixtyPercentWidth,
+            height: 60.0,
+            child: ElevatedButton(
+              onPressed: () {
+                // orderService.createOrder();       //uncomment this out later!
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CheckoutScreen(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(double.infinity, 40),
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
+                padding: const EdgeInsets.all(16.0),
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Checkout',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
-          );
-        },
+          ),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }
