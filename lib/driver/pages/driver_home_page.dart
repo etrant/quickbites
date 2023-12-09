@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names, prefer_collection_literals
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -155,15 +156,27 @@ class _DriverHomePageState extends State<DriverHomePage> {
     setGlobalPosition();
     setInitialLocation();
     showPinsOnMap();
+
+    // Determine the southwest and northeast corners
+    LatLng southwest = LatLng(
+      min(currentLocation!.latitude, destLocation!.latitude),
+      min(currentLocation!.longitude, destLocation!.longitude),
+    );
+    LatLng northeast = LatLng(
+      max(currentLocation!.latitude, destLocation!.latitude),
+      max(currentLocation!.longitude, destLocation!.longitude),
+    );
+
     bounds = LatLngBounds(
-      southwest: currentLocation!,
-      northeast: destLocation!,
+      southwest: southwest,
+      northeast: northeast,
     );
 
     centerBounds = LatLng(
       (bounds.northeast.latitude + bounds.southwest.latitude) / 2,
       (bounds.northeast.longitude + bounds.southwest.longitude) / 2,
     );
+
     polylinePoints = PolylinePoints();
     setPolylines();
   }
