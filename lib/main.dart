@@ -5,12 +5,15 @@ import 'package:quickbites/splash/pages/splash_page.dart';
 import 'firebase_options.dart';
 import 'package:universal_html/js.dart' as js;
 import 'package:universal_html/html.dart' as html;
+import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
   
-  js.context['googleMapsApiKey'] = dotenv.env['API_KEY'];
-  html.document.dispatchEvent(html.CustomEvent("google-maps-api-key-loaded"));
+  if (kIsWeb){
+    js.context['googleMapsApiKey'] = dotenv.env['API_KEY'];
+    html.document.dispatchEvent(html.CustomEvent("google-maps-api-key-loaded"));
+  }
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
