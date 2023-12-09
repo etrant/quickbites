@@ -10,6 +10,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:quickbites/auth/components/my_button.dart';
+import 'package:quickbites/customer/pages/Dashboard/dashboard.dart';
 
 // GSU Aderhold
 late LatLng SOURCE_LOCATION = LatLng(33.77397198231519, -84.36180263915438);
@@ -192,7 +193,6 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[900],
         actions: <Widget>[
           IconButton(
             onPressed: signUserOut,
@@ -219,7 +219,8 @@ class _DriverHomePageState extends State<DriverHomePage> {
               ),
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const Placeholder()),
+                  MaterialPageRoute(
+                      builder: (context) => CustomerDashBoardApp()),
                 );
               },
             ),
