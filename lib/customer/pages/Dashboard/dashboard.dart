@@ -68,6 +68,10 @@ class CustomerDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          "QuickBites",
+          style: TextStyle(fontSize: 25, color: Colors.black),
+        ),
         actions: <Widget>[
           IconButton(
               onPressed: () => signUserOut(context),
