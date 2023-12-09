@@ -257,20 +257,3 @@ class RestaurantCard extends StatelessWidget {
     );
   }
 }
-
-class TempMenu extends StatelessWidget {
-  const TempMenu({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Menu',
-          ),
-        ),
-        body: const Center(
-          child: Text("Menu goes here"),
-        ));
-  }
-}
